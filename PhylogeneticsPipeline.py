@@ -17,21 +17,26 @@ in_fullpath = glob.glob(in_dir+"*.fasta")
 
 # Start a for loop to loop throuh each file name:
 ### Remove index on in_fullpath
-'''
-for file in in_fullpath[1:5]:
+
+for file in in_fullpath:
     new_file_path = file.replace(in_dir, out_dir)
-    print(new_file_path)
     aln_cmd = 'mafft --auto --quiet '+file+' > '+new_file_path
-    
+    print(aln_cmd)
     os.system(aln_cmd)
-'''
+
+#sys.exit()
 
 out_fullpath = glob.glob(out_dir+"*.fasta")
 
 # Start a for loop to infer iqtree
+for file in out_fullpath:
+    tree_command = f"iqtree -s {file} -m TEST -nt 24"
+    print(tree_command)
+    os.system(tree_command)
 # 24 nodes
 ### Remove index on in_fullpath
 
-for file in in_fullpath[1:5]:
+#for file in in_fullpath[1:5]:
 
     # Loop through alligned .fast files and run iqtree on each
+
